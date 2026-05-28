@@ -1,0 +1,75 @@
+name: Deploy static content to Pages and Release PDF
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: write # Needed for creating a release
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Fira Sans and Fira Mono
+        run: |
+          set -euo pipefail
+          font_dir="$HOME/.local/share/fonts/fira-sans"
+          mkdir -p "$font_dir"
+          for font_file in FiraSans-Regular.ttf FiraSans-Italic.ttf FiraSans-Medium.ttf FiraSans-Bold.ttf FiraSans-BoldItalic.ttf; do
+            curl -fsSL "https://raw.githubusercontent.com/google/fonts/main/ofl/firasans/$font_file" -o "$font_dir/$font_file"
+          done
+          for font_file in FiraMono-Regular.ttf FiraMono-Medium.ttf FiraMono-Bold.ttf; do
+            curl -fsSL "https://raw.githubusercontent.com/google/fonts/main/ofl/firamono/$font_file" -o "$font_dir/$font_file"
+          done
+          fc-cache -f -v "$HOME/.local/share/fonts"
+
+      - name: Generate PDF
+        run: |
+          npm init -y
+          npm install puppeteer
+          node generate-pdf.js
+
+      - name: Cleanup build files
+        run: rm -rf node_modules package.json package-lock.json
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository (excluding the newly created node_modules because it will be ignored by pages upload usually, but let's be clean)
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Release PDF
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "poster.pdf"
+          tag: "latest"
+          name: "Latest Poster PDF"
+          body: "Automatically generated PDF of the latest poster."
+          allowUpdates: true
+          makeLatest: true

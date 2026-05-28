@@ -1,0 +1,25 @@
+{
+  "name": "phd-symposium-2026-flash-talk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "generate-pdf.js",
+  "scripts": {
+    "pdf": "node generate-pdf.js",
+    "serve": "npx http-server . -p 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angelacorte/phd-symposium-2026-flash-talk.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/angelacorte/phd-symposium-2026-flash-talk/issues"
+  },
+  "homepage": "https://github.com/angelacorte/phd-symposium-2026-flash-talk#readme",
+  "dependencies": {
+    "puppeteer": "^25.1.0"
+  }
+}

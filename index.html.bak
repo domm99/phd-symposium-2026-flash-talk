@@ -91,10 +91,11 @@
     h1 {
       margin: 6px 0 0;
       max-width: 1030px;
-      font-size: 26px;
-      line-height: 1.0;
+      font-size: 34px;
+      line-height: 0.96;
       font-weight: 860;
       letter-spacing: 0;
+      white-space: nowrap;
     }
 
     .subtitle {
@@ -528,13 +529,13 @@
 </head>
 <body>
   <div class="slide-stage">
-  <section class="slide" aria-label="Single slide for ACSOS 2026 Doctoral Symposium">
+  <section class="slide" aria-label="Single slide for CSE PhD Symposium 2026">
     <div class="slide-inner">
       <header>
         <div>
-          <div class="kicker">ACSOS 2026 Doctoral Symposium | Flash talk</div>
-          <h1>Self-Organizing Federated Learning in Collective Adaptive Systems</h1>
-          <div class="subtitle">Decentralized, self-organizing FL for heterogeneous and dynamic CAS</div>
+          <div class="kicker">CSE PhD Symposium 2026 | Flash talk</div>
+          <h1>Self-Organizing Federated Learning </h1>
+          <div class="subtitle">From one fragile global model to local, adaptive self-federations</div>
         </div>
         <div class="logo-wrap">
           <img class="logo" src="images/university.svg" alt="University of Bologna logo">
@@ -553,8 +554,8 @@
             <div class="section-label">Reference scenario</div>
 
             <div class="scenario-copy">
-              <h2>Learning in situated, heterogeneous collectives</h2>
-              <p>CAS are large-scale ensembles of devices that interact locally under non-IID data, mobility, and dynamic participation — no central coordinator can be assumed.</p>
+              <h2>Learning at the edge, where context matters</h2>
+              <p>Nearby devices observe related phenomena, but the whole system remains spatially heterogeneous.</p>
             </div>
 
             <div class="noniid-card">
@@ -632,7 +633,7 @@
           <span>PSFL: DOI 10.1016/j.iot.2025.101841</span>
           <span>SParSeFuL: SSRN 6584516</span>
         </div>
-        <div class="event">ACSOS 2026 | 1 min</div>
+        <div class="event">Friday, June 12 | 3 min</div>
       </footer>
     </div>
   </section>
